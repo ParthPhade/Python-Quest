@@ -1,0 +1,6 @@
+# Ignore personal progress and temp projects
+python_quest_workspace/
+__pycache__/
+*.pyc
+sandbox.py
+L*.py
