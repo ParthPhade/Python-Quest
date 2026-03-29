@@ -143,6 +143,21 @@ lessons = [
     Lesson("3", "Arithmetic", "Use + - * /.", "print(10 * 5)", "Print 10 * 5", lambda c,o: v_out(c,o,"50")),
     Lesson("4", "String Power", ".upper() makes text big.", "print('hi'.upper())", "Print 'hacker' in CAPS", lambda c,o: v_out(c,o,"HACKER")),
     Lesson("5", "Backpack", "Lists use [ ] and commas.", "items = ['a', 'b']", "Create list tools = ['pc', 'usb']", lambda c,o: v_code(c,o,"tools = [")),
+    Lesson("6", "Tuples", "Tuples are immutable lists in ( ).", "t = (1, 2)", "Create t = (5, 6)", lambda c,o: v_code(c,o,"(")),
+    Lesson("7", "Sets", "Sets only keep unique items.", "s = {1, 2}", "Create s = {1, 2}", lambda c,o: v_code(c,o,"{")),
+    Lesson("8", "Dictionaries", "Dicts use Key:Value pairs.", "d = {'x': 1}", "Create d = {'id': 1}", lambda c,o: v_code(c,o,":")),
+    Lesson("9", "If Statements", "If x > 5: happens if true.", "if 10 > 5:", "Check if 10 > 5", lambda c,o: v_code(c,o,"if ")),
+    Lesson("10", "Else", "Else runs when if is false.", "else:", "Add else to an if", lambda c,o: v_code(c,o,"else")),
+    Lesson("11", "For Loops", "For repeats for each item.", "for i in range(3):", "Loop range(3)", lambda c,o: v_code(c,o,"for ")),
+    Lesson("12", "While Loops", "While repeats while true.", "while x < 3:", "Loop until x is 3", lambda c,o: v_code(c,o,"while ")),
+    Lesson("13", "Try Except", "Try catches errors safely.", "try:\n  pass", "Use try/except", lambda c,o: v_code(c,o,"try")),
+    Lesson("14", "Input", "input() gets data from user.", "x = input()", "Ask for name", lambda c,o: v_code(c,o,"input")),
+    Lesson("15", "Functions", "def name(): creates a tool.", "def hi():", "Create def greet()", lambda c,o: v_code(c,o,"def ")),
+    Lesson("16", "Arguments", "Functions take data in ( ).", "def hi(x):", "Function with (x)", lambda c,o: v_code(c,o,"(x)")),
+    Lesson("17", "Read File", "open(f, 'r') opens for reading.", "open('f', 'r')", "Open file for 'r'", lambda c,o: v_code(c,o,"'r'")),
+    Lesson("18", "Write File", "open(f, 'w') opens for writing.", "open('f', 'w')", "Open file for 'w'", lambda c,o: v_code(c,o,"'w'")),
+    Lesson("19", "Classes", "class is a blueprint for objects.", "class Hero:", "Create class Player", lambda c,o: v_code(c,o,"class ")),
+    Lesson("20", "Inheritance", "Take powers from other classes.", "class A(B):", "Inherit from A", lambda c,o: v_code(c,o,"(A)"))
 ]
 
 def main():
@@ -156,13 +171,13 @@ def main():
         clear_screen()
         UI.header(f"{p.data['name']} | LVL {p.data['level']} | XP {p.data['xp']}")
         
-        chapters = [("FUNDAMENTALS", 0, 5)]
-        for name, start, end in chapters:
+        sagas = [("BASICS", 0, 4), ("DATA", 4, 8), ("LOGIC", 8, 12), ("TOOLS", 12, 16), ("PRO", 16, 20)]
+        for name, start, end in sagas:
             done = sum(1 for i in range(start, end) if lessons[i].id in p.data["completed"])
-            print(f"\n {Colors.M}{name.ljust(18)}{Colors.END} {UI.progress_bar(done, 5)}")
+            print(f"\n {Colors.M}{name.ljust(12)}{Colors.END} {UI.progress_bar(done, 4)}")
             for i in range(start, end):
-                icon = f"{Colors.G}OK{Colors.END}" if lessons[i].id in p.data["completed"] else ".."
-                print(f"   {icon} {lessons[i].id}. {lessons[i].title}")
+                status = f"{Colors.G}OK{Colors.END}" if lessons[i].id in p.data["completed"] else ".."
+                print(f"   {status} {lessons[i].id}. {lessons[i].title}")
 
         print(f"\n {Colors.Y}[S] SANDBOX{Colors.END}  {Colors.R}[R] RESET{Colors.END}  {Colors.R}[Q] QUIT{Colors.END}")
         cmd = input("\n❯ ").lower()
@@ -183,7 +198,7 @@ def main():
                 input("\nEnter to return...")
         elif cmd.isdigit():
             idx = int(cmd) - 1
-            if 0 <= idx < len(lessons): lessons[idx].play(p)
+            if 0 <= idx < 20: lessons[idx].play(p)
 
 if __name__ == "__main__":
     try: main()
